@@ -49,6 +49,13 @@
       </td>
     </tr>
     <tr>
+      <th class="left">Duration for desktop notification</th>
+      <td class="right">
+        <input type="textbox" id="notification_duration" value="3" size="1" maxlength="2" onblur="save('notification_duration', 'textbox');"/>
+        <label for="notification_duration">How many seconds to show the desktop notification?</label><br/>
+      </td>
+    </tr>
+    <tr>
       <th class="left">Clear saved options</th>
       <td class="right">
         <button onclick="clearData()">Clear</button>
@@ -71,8 +78,9 @@ var poll_frequency;
 var poll_for_mentions;
 var poll_for_direct_messages;
 var geo_enabled;
-var default_options = {poll_frequency: 3, poll_for_mentions: 'enabled', poll_for_direct_messages: 'enabled', geo_enabled: 'enabled'};
-var default_options_name = {poll_frequency: 'Poll frequency', poll_for_mentions: 'Check for mentions', poll_for_direct_messages: 'Check for direct messages', geo_enabled: 'Location'};
+var notification_duration;
+var default_options = {poll_frequency: 3, poll_for_mentions: 'enabled', poll_for_direct_messages: 'enabled', geo_enabled: 'enabled', notification_duration: 3};
+var default_options_name = {poll_frequency: 'Poll frequency', poll_for_mentions: 'Check for mentions', poll_for_direct_messages: 'Check for direct messages', geo_enabled: 'Location', notification_duration: 'Duration for desktop notification'};
 
 function init() {
   poll_frequency = document.omnitweet.poll_frequency;
@@ -84,6 +92,8 @@ function init() {
   poll_for_direct_messages.checked = localStorage.poll_for_direct_messages != 'disabled'? true : false;
   geo_enabled = document.getElementById('geo_enabled');
   geo_enabled.checked = localStorage.geo_enabled != 'disabled'? true : false;
+  notification_duration = document.getElementById('notification_duration');
+  notification_duration.value = localStorage.notification_duration ? localStorage.notification_duration : default_options.notification_duration;
   if (localStorage.installed) {
     showUser();
   } else {
