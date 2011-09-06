@@ -13,6 +13,12 @@ var Notice = (function ()  {
       type,
       text
     );
+    var duration = localStorage.notification_duration * 1000;
+    notification.ondisplay = function(event) {
+        setTimeout(function() {
+                event.target.cancel();
+            }, duration);
+    }
     notification.show();
   }
 
@@ -23,12 +29,24 @@ var Notice = (function ()  {
       return false;
     }
     var notification = webkitNotifications.createHTMLNotification('status.html?id=' + id);
+    var duration = localStorage.notification_duration * 1000;
+    notification.ondisplay = function(event) {
+        setTimeout(function() {
+                event.target.cancel();
+            }, duration);
+    }
     notification.show();
   }
   
   // Show direct message notice
   my.direct_message = function(id) {
     var notification = webkitNotifications.createHTMLNotification('direct_message.html?id=' + id);
+    var duration = localStorage.notification_duration * 1000;
+    notification.ondisplay = function(event) {
+        setTimeout(function() {
+                event.target.cancel();
+            }, duration);
+    }
     notification.show();
   }
 
